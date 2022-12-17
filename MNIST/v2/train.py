@@ -47,14 +47,14 @@ if __name__ == "__main__":
     )
 
     training_set: datasets.MNIST = datasets.MNIST(
-        root="./data",
+        root="../../data",
         train=True,
         download=True,
         transform=transformation
     )
 
     test_set: datasets.MNIST = datasets.MNIST(
-        root="./data",
+        root="../../data",
         train=False,
         download=True,
         transform=transformation
