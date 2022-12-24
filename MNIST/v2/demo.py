@@ -60,8 +60,9 @@ if __name__ == "__main__":
     model = Digitv2Model().to(device)
     print(model)
 
-    model.load_state_dict(torch.load("./digitsv2.pth", map_location= torch.device("cpu")))
+    model.load_state_dict(torch.load("./digitsv2.pth", map_location=torch.device("cpu")))
     model.eval()
+
 
     with torch.no_grad():
         correct = 0

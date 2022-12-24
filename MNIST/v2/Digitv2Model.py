@@ -46,7 +46,7 @@ class Digitv2Model(nn.Module):
         x = self.pool1(x)
         x = self.conv2(x)
         x = self.relu(x)
-        x = self.pool2(x)
+        x: torch.Tensor = self.pool2(x)
         x = x.view(-1, int(10 * 28 * 28 // 16))
         x = self.l1(x)
         x = self.relu(x)

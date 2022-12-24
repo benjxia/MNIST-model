@@ -8,7 +8,6 @@ import torch.nn.functional as f
 import numpy as np
 import matplotlib.pyplot as plt
 
-
 INPUT_SIZE: int = 28 * 28
 OUTPUT_CLS: int = 10
 TRAIN_BATCH_SZ: int = 64
@@ -22,21 +21,21 @@ RANDOM_SEED: int = 0x10f2c
 torch.manual_seed(RANDOM_SEED)
 
 training_set: datasets.MNIST = datasets.MNIST(
-    root= "../../data",
-    train= True,
-    download= True,
-    transform= ToTensor()
+    root="../../data",
+    train=True,
+    download=True,
+    transform=ToTensor()
 )
 
 test_set: datasets.MNIST = datasets.MNIST(
-    root = "../../data",
-    train= False,
-    download= True,
-    transform= ToTensor()
+    root="../../data",
+    train=False,
+    download=True,
+    transform=ToTensor()
 )
 
-train_dl: DataLoader = DataLoader(training_set, batch_size= TRAIN_BATCH_SZ, shuffle= True)
-test_dl: DataLoader = DataLoader(test_set, batch_size= TEST_BATCH_SZ, shuffle= False)
+train_dl: DataLoader = DataLoader(training_set, batch_size=TRAIN_BATCH_SZ, shuffle=True)
+test_dl: DataLoader = DataLoader(test_set, batch_size=TEST_BATCH_SZ, shuffle=False)
 
 device: str = "cuda" if torch.cuda.is_available() else "cpu"
 print(f"Using {device} device")
@@ -58,7 +57,7 @@ class DigitNetwork(nn.Module):
 
 def train():
     criterion: nn.CrossEntropyLoss = nn.CrossEntropyLoss()
-    optimizer: torch.optim.Adam = torch.optim.Adam(model.parameters(), lr= LEARNING_RATE)
+    optimizer: torch.optim.Adam = torch.optim.Adam(model.parameters(), lr=LEARNING_RATE)
 
     n_steps = len(train_dl)
 
@@ -80,6 +79,7 @@ def train():
             if (i + 1) % TRAIN_BATCH_SZ == 0:
                 print(f"Epoch {epoch + 1}/{TRAIN_EPOCH}, step {i + 1}/{n_steps}, loss = {loss.item():.4f}")
 
+
 def test():
     with torch.no_grad():
         correct = 0
@@ -97,9 +97,9 @@ def test():
     acc = 100 * correct / samples
     print(f"Accuracy: {acc}")
 
+
 if __name__ == "__main__":
     model = DigitNetwork().to(device)
-    model.load_state_dict(torch.load("./digitsv1.pth"))
-    model.eval()
     print(model)
+    train()
 
